@@ -1,16 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>teste</title>
-</head>
-<body>
-    {% for evento in eventos %}
-            <li>
-                {{ evento.nome_do_evento }} - {{ evento.data_do_evento|date:"d/m/Y" }}
-            </li>
-        {% empty %}
-            <li>Nenhum evento disponível.</li>
-        {% endfor %}
-</body>
-</html>
+{% extends "bases/base_evento.html" %}
+
+{% load static %}
+
+{% block 'conteudo' %}
+    <div class="conatiner">
+        <div class="row mt-4">
+            {% for evento in eventos %}
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                {{ evento.nome_do_evento }}
+                            </h5>
+                            <p class="card-text">
+                                <strong>Data e Hora:</strong> {{ evento.data_do_evento|date:"d/m/Y " }}<br>
+                                <strong>Localização:</strong> {{ evento.local_do_evento }}
+                            </p>
+                             <a href="{% url 'detalhe_evento' evento.id %}" class="btn btn-primary">Detalhe este evento</a>
+                        </div>
+
+                    </div>
+                </div>
+
+                {% empty %}
+                <li>Nenhum evento disponível.</li>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,14 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>teste</title>
-</head>
-<body>
-    <h1>Detalhes do Evento</h1>
-    <h2>{{ evento.nome_do_evento }}</h2>
-    <p>Data e Hora: {{ evento.data_do_evento|date:"d/m/Y" }}</p>
-    <p>Localização: {{ evento.local_do_evento }}</p>
-    <p>Descrição: {{ evento.descricao_do_evento }}</p>
-</body>
-</html>
+{% extends "bases/base_evento.html" %}
+
+{% load static %}
+
+{% block 'conteudo' %}
+    <div class="container">
+        <div class="row mt-4">
+             <h1>Detalhes do Evento</h1>
+             <h2>{{ evento.nome_do_evento }}</h2>
+             <p>Data: {{ evento.data_do_evento|date:"d/m/Y" }}</p>
+             <p>Localização: {{ evento.local_do_evento }}</p>
+             <p>Descrição: {{ evento.descricao_do_evento }}</p>
+
+            <div class="col-md-3">
+                <a href="{% url 'detalhe_evento' evento.id %}" class="btn btn-danger">Inscrever </a>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
