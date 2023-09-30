@@ -10,5 +10,21 @@
     <p>Data e Hora: {{ evento.data_do_evento|date:"d/m/Y" }}</p>
     <p>Localização: {{ evento.local_do_evento }}</p>
     <p>Descrição: {{ evento.descricao_do_evento }}</p>
+    <ul>
+    <h4> Palestrantes: </h4>
+    {% for palestrante in palestrantes %}
+        <li>
+                {{palestrante.nome_do_palestrante}} - <a href="{% url 'detalhe_palestrante' palestrante.id %}">Ver perfil</a>
+        </li>
+
+    {% endfor %}
+
+    </ul>
+    <ul>
+    <h4> Palestras: </h4>
+    {% for palestra in palestras %}
+        <li>{{palestra.titulo_da_palestra}} - {{palestra.palestrante}}</li>
+    {% endfor %}
+    </ul>
 </body>
 </html>

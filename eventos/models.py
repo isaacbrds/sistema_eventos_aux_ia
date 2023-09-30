@@ -54,6 +54,7 @@ class Palestra(models.Model):
     descricao_da_palestra = models.TextField()
     palestrante = models.ForeignKey(Palestrante, on_delete=models.CASCADE)
 
+
     def __str__(self):
         return self.titulo_da_palestra
 
