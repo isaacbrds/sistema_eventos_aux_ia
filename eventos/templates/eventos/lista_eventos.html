@@ -7,7 +7,8 @@
 <body>
     {% for evento in eventos %}
             <li>
-                {{ evento.nome_do_evento }} - {{ evento.data_do_evento|date:"d/m/Y" }}
+                {{ evento.nome_do_evento }} - {{ evento.data_do_evento|date:"d/m/Y" }} -
+                <a href="{% url 'detalhe_evento' evento.id %}"> Detalhe do Eventos</a>
             </li>
         {% empty %}
             <li>Nenhum evento disponível.</li>
