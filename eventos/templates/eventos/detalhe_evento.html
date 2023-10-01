@@ -1,41 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>teste</title>
-</head>
-<body>
-    {% if messages %}
-      {% for message in messages %}
-          <div class="alert {{ message.tags }}">{{ message }}</div>
-      {% endfor %}
-    {% endif %}
-    <h1>Detalhes do Evento</h1>
-    <h2>{{ evento.nome_do_evento }}</h2>
-    <p>Data e Hora: {{ evento.data_do_evento|date:"d/m/Y" }}</p>
-    <p>Localização: {{ evento.local_do_evento }}</p>
-    <p>Descrição: {{ evento.descricao_do_evento }}</p>
-    <ul>
-    <h4> Palestrantes: </h4>
-    {% for palestrante in palestrantes %}
-        <li>
-                {{palestrante.nome_do_palestrante}} - <a href="{% url 'detalhe_palestrante' palestrante.id %}">Ver perfil</a>
-        </li>
 
-    {% endfor %}
+{% extends "bases/base_evento.html" %}
 
-    </ul>
-    <ul>
-    <h4> Palestras: </h4>
-    {% for palestra in palestras %}
-        <li>{{palestra.titulo_da_palestra}} - {{palestra.palestrante}}</li>
-    {% endfor %}
-    </ul>
+{% load static %}
 
-    <a href="{% url 'participar_evento' evento.id %}" > participar </a>
-    <br/>
-    <br/>
+{% block 'conteudo' %}
+    <div class="container">
+        <div class="row mt-4">
+             <h1>Detalhes do Evento</h1>
+             <h2>{{ evento.nome_do_evento }}</h2>
+             <p>Data: {{ evento.data_do_evento|date:"d/m/Y" }}</p>
+             <p>Localização: {{ evento.local_do_evento }}</p>
+             <p>Descrição: {{ evento.descricao_do_evento }}</p>
 
-    <a href="{% url 'lista_eventos' %}">Voltar</a>
-</body>
-</html>
+            <div class="col-md-3">
+                <a href="{% url 'detalhe_evento' evento.id %}" class="btn btn-danger">Inscrever </a>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+
