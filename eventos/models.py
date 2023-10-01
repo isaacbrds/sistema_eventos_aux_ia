@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.contrib.auth.models import User
 # Create your models here.
 class Evento(models.Model):
     nome_do_evento = models.CharField(max_length=250)
@@ -16,6 +16,7 @@ class Participante(models.Model):
     email = models.EmailField()
     numero_telefone = models.CharField(max_length=20)
     informacoes_adicionais = models.TextField()
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return self.nome_do_participante
@@ -34,7 +35,7 @@ class Ingresso(models.Model):
 class Participacao(models.Model):
     evento = models.ForeignKey(Evento, on_delete=models.CASCADE)
     participante = models.ForeignKey(Participante, on_delete=models.CASCADE)
-    hora_do_registro = models.DateTimeField()
+    hora_do_registro = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"{self.evento} - {self.participante}"
@@ -44,6 +45,7 @@ class Palestrante(models.Model):
     nome_do_palestrante = models.CharField(max_length=250)
     resumo_do_palestrante = models.TextField()
     evento = models.ForeignKey(Evento, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return self.nome_do_palestrante

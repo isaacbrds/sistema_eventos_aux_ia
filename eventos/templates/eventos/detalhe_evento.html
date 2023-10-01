@@ -5,6 +5,11 @@
     <title>teste</title>
 </head>
 <body>
+    {% if messages %}
+      {% for message in messages %}
+          <div class="alert {{ message.tags }}">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
     <h1>Detalhes do Evento</h1>
     <h2>{{ evento.nome_do_evento }}</h2>
     <p>Data e Hora: {{ evento.data_do_evento|date:"d/m/Y" }}</p>
@@ -26,6 +31,10 @@
         <li>{{palestra.titulo_da_palestra}} - {{palestra.palestrante}}</li>
     {% endfor %}
     </ul>
+
+    <a href="{% url 'participar_evento' evento.id %}" > participar </a>
+    <br/>
+    <br/>
 
     <a href="{% url 'lista_eventos' %}">Voltar</a>
 </body>
