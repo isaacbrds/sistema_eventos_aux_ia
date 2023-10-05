@@ -1,0 +1,15 @@
+{% extends "bases/base_evento.html" %}
+
+{% load static %}
+
+{% block 'conteudo' %}
+    <h1>Detalhes do Palestra</h1>
+    <h3>{{ palestra.titulo_da_palestra }} - {{ palestra.palestrante.nome_do_palestrante }}</h3>
+
+    <form action="{% url 'inscrever_palestra' palestra.id %}" method="POST" class="mt-3">
+        {% csrf_token %}
+        <input type="submit" value="Inscrever">
+    </form>
+
+    <a href="{% url 'lista_eventos' %}">Voltar</a>
+{% endblock %}

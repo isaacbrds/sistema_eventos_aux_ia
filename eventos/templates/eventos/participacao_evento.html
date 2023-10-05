@@ -1,10 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>teste</title>
-</head>
-<body>
+{% extends "bases/base_evento.html" %}
+
+{% load static %}
+
+{% block 'conteudo' %}
     <h1>Detalhes do Evento</h1>
     <h2>{{ evento.nome_do_evento }}</h2>
     <p><b>Data e Hora: {{ evento.data_do_evento|date:"d/m/Y" }}</b></p>
@@ -15,5 +13,4 @@
     </form>
 
     <a href="{% url 'lista_eventos' %}">Voltar</a>
-</body>
-</html>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends "bases/base_evento.html" %}
+
+{% load static %}
+
+{% block 'conteudo' %}
+<h1>Detalhes do Palestra</h1>
+<h2>{{ palestrante.titulo_do_palestra }}</h2>
+<p>Descrição: {{ palestra.descricao_da_palestra }}</p>
+<p>Palestrante: {{palestra.palestrante.nome_do_palestrante}}</p>
+<p>Evento: {{palestra.palestrante.evento.nome_do_evento}}</p>
+
+<div class="col-md-3">
+    <a href="{% url 'inscrever_palestra' palestra.id %}" class="btn btn-danger">Inscrever </a>
+</div>
+
+{% endblock %}

@@ -3,6 +3,7 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from django.contrib import messages, auth
 from django.contrib.messages import constants
+from eventos.models import Participante
 
 # Create your views here.
 
@@ -45,6 +46,8 @@ def cadastrar(request):
             return redirect(reverse('cadastrar'))
 
         user = User.objects.create_user(username=username, password=password)
+        participante = Participante(user=user, nome_do_participante=username)
+        participante.save()
         messages.add_message(request, constants.SUCCESS, 'Usuário cadastrado com sucesso!')
         user.save()
         return redirect(reverse('login'))

@@ -1,21 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "bases/base_evento.html" %}
+
+{% load static %}
+
+{% block 'conteudo' %}
 <h1>Perfil do Participante</h1>
-    {% if messages %}
-      {% for message in messages %}
-          <div class="alert {{ message.tags }}">{{ message }}</div>
-      {% endfor %}
-    {% endif %}
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Atualizar</button>
-        <a href="{%url 'lista_eventos' %}" >Voltar</a>
-    </form>
-</body>
-</html>
+{% if messages %}
+{% for message in messages %}
+<div class="alert {{ message.tags }}">{{ message }}</div>
+{% endfor %}
+{% endif %}
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Atualizar</button>
+    <a href="{%url 'lista_eventos' %}">Voltar</a>
+</form>
+{% endblock %}

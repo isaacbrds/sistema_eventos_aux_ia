@@ -1,20 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>teste</title>
-</head>
-<body>
-    <h1>Detalhes do Palestrante</h1>
-    <h2>{{ palestrante.nome_do_palestrante }}</h2>
-    <p>Biografia: {{ palestrante.resumo_do_palestrante }}</p>
-    <p>Evento: {{palestrante.evento.nome_do_evento}}</p>
-    <h4> Palestra: </h4>
-    <ul>
-    {% for palestra in palestras %}
-        <li>{{palestra.titulo_da_palestra}}</li>
-    {% endfor %}
-    </ul>
+{% extends "bases/base_evento.html" %}
 
-</body>
-</html>
+{% load static %}
+
+{% block 'conteudo' %}
+<h1>Detalhes do Palestrante</h1>
+<h2>{{ palestrante.nome_do_palestrante }}</h2>
+<p>Biografia: {{ palestrante.resumo_do_palestrante }}</p>
+<p>Evento: {{palestrante.evento.nome_do_evento}}</p>
+<h4> Palestra: </h4>
+<ul>
+    {% for palestra in palestras %}
+    <li>{{palestra.titulo_da_palestra}}</li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
