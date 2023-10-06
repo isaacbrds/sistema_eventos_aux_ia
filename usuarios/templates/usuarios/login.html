@@ -1,25 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-    <h2>Login</h2>
+{% extends 'bases/base.html' %}
+{% load static %}
+{% block 'head' %}
+<link href="{% static 'usuarios/css/usuarios.css' %}" rel="stylesheet">
+{% endblock %}
+{% block 'importacoes' %}
+{% endblock %}
+{% block 'body' %}
 
-     {% if messages %}
-      {% for message in messages %}
-          <div class="alert {{ message.tags }}">{{ message }}</div>
-      {% endfor %}
-    {% endif %}
-  <hr style="border-color: #7E7B7C">
+<div class="container">
+    <div class="row">
+        <div class="box-form col-md-6">
+            {% if messages %}
+            {% for message in messages %}
+            <div class="alert {{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+            {% endif %}
+            <div class="form-login">
+                <h2>Login</h2>
+                <hr style="border-color: #7E7B7C">
+                <form action="{% url 'login' %}" method="POST" class="form-group">
+                    {% csrf_token %}
+                    <input type="text" name="username" placeholder="nome do usuário" class="form-control mb-2">
 
-    <form action="{% url 'login' %}" method="POST">
-        {% csrf_token %}
-        <input type="text" name="username" placeholder="nome do usuário">
-        <input type="password" name="password" placeholder="senha">
-        <a href="{% url 'cadastrar'%}">Ainda não tem cadastro? Cadastre-se </a><br/>
-        <input type="submit" value="Logar">
-    </form>
-</body>
-</html>
+                    <input type="password" name="password" placeholder="senha" class="form-control mb-2">
+                    <a href="{% url 'cadastrar'%}">Ainda não tem cadastro? Cadastre-se </a><br/>
+                    <input type="submit" value=" Logar " class="btn btn-primary mt-3">
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
