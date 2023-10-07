@@ -2,81 +2,86 @@
 {% load static %}
 {% block 'head' %}
 {% block 'importacoes' %}
+<link href="{% static 'geral/css/eventos.css' %}" rel="stylesheet">
+<link href="https://fonts.bunny.net/css2?family=Raleway:wght@400;700&amp;display=block" rel="stylesheet">
 {% endblock %}
 {% endblock %}
 {% block 'body' %}
-<nav
-        class="navbar navbar-expand-lg bg-body-tertiary navbar-color"
-        data-bs-theme="light"
->
-    <div class="container-fluid">
-        <a class="navbar-brand" href="/eventos">SGE</a>
-        <button
-                class="navbar-toggler"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navbarNavDropdown"
-                aria-controls="navbarNavDropdown"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
-        >
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav">
-                <li class="nav-item dropdown">
-                    <a
-                            class="nav-link dropdown-toggle"
-                            href="#"
-                            role="button"
-                            data-bs-toggle="dropdown"
-                            aria-expanded="false"
-                    >
-                        Empresa
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li>
-
-                        </li>
-                    </ul>
-                </li>
-
-                <li class="nav-item dropdown">
-                    <a
-                            class="nav-link dropdown-toggle"
-                            href="#"
-                            role="button"
-                            data-bs-toggle="dropdown"
-                            aria-expanded="false"
-                    >
-                        Cliente
-                    </a>
-                    <ul class="dropdown-menu">
-
-                    </ul>
-                </li>
-            </ul>
-        </div>
-        <ul class="navbar-nav">
-            <li class="nav-item dropdown">
-                <a
-                        class="nav-link dropdown-toggle"
-                        href="#"
-                        role="button"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                >
-                    {{request.user.username}}
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="{% url 'perfil_participante' %}">Ver Perfil</a></li>
-                    <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
-                </ul>
-            </li>
-        </ul>
+<div class="Navbar">
+    <div class="Navbar__Link Navbar__Link-brand">
+        <a href="#"><img src="{% static 'geral/img/logo-t.png' %}" alt="Logo"></a>
     </div>
-</nav>
+    <nav class="Navbar__Items">
+        <div class="Navbar__Link">
+            <a
+                    class="nav-link"
+                    href="{% url 'lista_eventos' %}"
+            >
+                Início
 
+            </a>
+        </div>
+        <div class="Navbar__Link">
+            <a
+                    class="nav-link"
+                    href="#"
+            >
+                Verificar Certificado
+
+            </a>
+
+        </div>
+        <div class="Navbar__Link">
+            <a
+                    class="nav-link"
+                    href="#"
+            >
+                Fale Conosco
+
+            </a>
+        </div>
+    </nav>
+    <nav class="Navbar__Items Navbar__Items--right">
+        <div class="Navbar__Link">
+            {% if request.user.username %}
+            <a
+                    class="nav-link dropdown-toggle"
+                    href="#"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+            >
+                {{request.user.username}}
+
+            </a>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="{% url 'perfil_participante' %}">Ver Perfil</a></li>
+                <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+            </ul>
+            {% else %}
+            <a
+                    class="nav-link"
+                    href="{% url 'login' %}"
+                    role="button"
+            >
+                Logar
+
+            </a>
+            {%endif%}
+        </div>
+        <div class="Navbar__Link button cad">
+            <a
+                    class="nav-link"
+                    href="{% url 'cadastrar' %}"
+                    role="button"
+
+            >
+                Cadastrar
+
+            </a>
+        </div>
+    </nav>
+</div>
 <div style="min-height: 60vh">
     <div class="container">
         <div class="row mt-4">
