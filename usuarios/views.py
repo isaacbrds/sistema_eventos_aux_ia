@@ -20,7 +20,7 @@ def login(request):
             return redirect(reverse('login'))
 
         auth.login(request, user)
-        return redirect('/eventos/')
+        return redirect('/')
 
 def logout(request):
     auth.logout(request)

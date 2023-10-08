@@ -44,7 +44,7 @@ class Participacao(models.Model):
 class Palestrante(models.Model):
     nome_do_palestrante = models.CharField(max_length=250)
     resumo_do_palestrante = models.TextField()
-    evento = models.ForeignKey(Evento, on_delete=models.CASCADE)
+    evento = models.ForeignKey(Evento, on_delete=models.CASCADE, null=True, blank=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):

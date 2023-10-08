@@ -40,6 +40,15 @@
 
             </a>
         </div>
+        <div class="Navbar__Link">
+            <a
+                    class="nav-link"
+                    href="{% url 'login_palestrante' %}"
+            >
+               Login Palestrante
+
+            </a>
+        </div>
     </nav>
     <nav class="Navbar__Items Navbar__Items--right">
         <div class="Navbar__Link">
@@ -55,7 +64,13 @@
 
             </a>
             <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="{% url 'perfil_participante' %}">Ver Perfil</a></li>
+                {% if request.user.is_staff %}
+                    <li><a class="dropdown-item" href="/admin/auth/user/">Perfil Administrador </a></li>
+                {% elif request.user.palestrante %}
+                    <li><a class="dropdown-item" href="{% url 'perfil_palestrante' %}">Perfil Palestrante</a></li>
+                {% else %}
+                    <li><a class="dropdown-item" href="{% url 'perfil_participante' %}">Ver Perfil</a></li>
+                {% endif %}
                 <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
             </ul>
             {% else %}
