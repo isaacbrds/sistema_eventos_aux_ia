@@ -1,10 +1,11 @@
+from django.contrib.auth.models import User
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from .models import Evento, Palestrante, Palestra, Participante, Participacao, Inscricao
 from django.contrib import messages, auth
 from django.contrib.messages import constants
-from .forms import ParticipanteForm
+from .forms import ParticipanteForm, PalestranteForm
 # Create your views here.
 
 
@@ -94,3 +95,56 @@ def perfil_participante(request):
     else:
         form = ParticipanteForm(instance=participante)
     return render(request, 'eventos/perfil_participante.html', {'form': form})
+
+
+def perfil_palestrante(request):
+    palestrante = get_object_or_404(Palestrante, user=request.user)
+    if request.method == 'POST':
+        form = PalestranteForm(request.POST, instance=palestrante)
+        if form.is_valid():
+            form.save()
+            messages.add_message(request, constants.SUCCESS, 'Parabéns, dados alterados com sucesso!')
+            return redirect(reverse('lista_eventos'))
+    else:
+        form = PalestranteForm(instance=palestrante)
+    return render(request, 'eventos/perfil_palestrante.html', {'form': form})
+
+def login_palestrante(request):
+    if request.method == 'GET':
+        return render(request, 'eventos/login_palestrante.html')
+    else:
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = auth.authenticate(username=username, password=password)
+
+        if not user:
+            messages.add_message(request, constants.ERROR, 'Usuário não encontrado')
+            return redirect(reverse('login_palestrante'))
+
+        auth.login(request, user)
+        return redirect('/')
+
+def cadastrar_palestrante(request):
+    if request.method == 'GET':
+        return render(request, 'eventos/cadastrar_palestrante.html')
+    else:
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        password_confirmation = request.POST.get('password_confirmation')
+
+        if password != password_confirmation:
+            messages.add_message(request, constants.ERROR, 'As senhas não coincidem')
+            return redirect(reverse('cadastrar_palestrante'))
+
+        user = User.objects.filter(username=username)
+
+        if user.exists():
+            messages.add_message(request, constants.ERROR, 'Nome de usuário em uso')
+            return redirect(reverse('cadastrar_palestrante'))
+
+        user = User.objects.create_user(username=username, password=password)
+        palestrante = Palestrante(user=user, nome_do_palestrante=username)
+        palestrante.save()
+        messages.add_message(request, constants.SUCCESS, 'Palestrante cadastrado com sucesso!')
+        user.save()
+        return redirect(reverse('login'))
