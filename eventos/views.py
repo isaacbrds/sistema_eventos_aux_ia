@@ -17,7 +17,7 @@ def lista_eventos(request):
 
 def detalhe_evento(request, id=id):
     evento = get_object_or_404(Evento, pk=id)
-    palestrantes_do_evento = Palestrante.objects.filter(evento=evento)
+    palestrantes_do_evento = Palestrante.objects.filter(eventos=evento)
     palestras_do_evento = Palestra.objects.filter(palestrante__in=palestrantes_do_evento)
     return render(request, 'eventos/detalhe_evento.html', { 'evento': evento, 'palestrantes': palestrantes_do_evento, 'palestras': palestras_do_evento })
 
