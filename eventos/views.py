@@ -32,7 +32,7 @@ def detalhe_palestra(request, id=id):
     return render(request, 'eventos/detalhe_palestra.html', { 'palestra': palestra})
 
 
-@login_required
+#@login_required
 def participar_evento(request, id=id):
     evento = get_object_or_404(Evento, pk=id)
     if request.method == 'GET':
@@ -44,6 +44,12 @@ def participar_evento(request, id=id):
 
             # Certifique-se de que o participante existe antes de criar a inscrição
             if participante:
+                ja_participando = get_object_or_404(Participacao, evento=evento, participante=participante)
+
+                if ja_participando:
+                    messages.add_message(request, constants.ERROR, 'Você já é um participante desse evento.')
+                    return redirect(reverse('detalhe_evento', kwargs={'id': id}))
+
                 participacao = Participacao(evento=evento, participante=participante)
                 participacao.save()
 
@@ -53,7 +59,7 @@ def participar_evento(request, id=id):
                 messages.add_message(request, constants.ERROR, 'Você não é um participante válido.')
                 return redirect(reverse('detalhe_evento', kwargs={'id': id}))
         else:
-            messages.add_message(request, constants.ERROR, 'Você precisa estar autenticado para se inscrever.')
+            messages.add_message(request, constants.ERROR, 'Você precisa estar logado para se inscrever.')
             return redirect(reverse('detalhe_evento', kwargs={'id': id}))
 
 def inscrever_palestra(request, id=id):
